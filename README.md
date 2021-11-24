@@ -1,1 +1,0 @@
-# Spectral-Normalization-for-GANs
