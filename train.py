@@ -1,9 +1,9 @@
 import model
 import chainer
-from util import inception
 from util.trainer import SNGANUpdater
 from util.dataset import CIFAR10
 from util.generate_fake_image import generate
+from util.generate_inception_score import inception_score
 
 if __name__ == '__main__':
     chainer.cuda.get_device_from_id(0).use()
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     trainer.extend(chainer.training.extensions.snapshot(), trigger=(10000, 'iteration'))
     trainer.extend(chainer.training.extensions.snapshot_object(discriminator, discriminator.__class__.__name__ + '_{.updater.iteration}.npz'), trigger=(10000, 'iteration'))
     trainer.extend(chainer.training.extensions.snapshot_object(generator, generator.__class__.__name__ + '_{.updater.iteration}.npz'), trigger=(10000, 'iteration'))
-    trainer.extend(inception.inception_score(generator, 100, "util/inception_model", 1000, 1), trigger=(1000, 'iteration'), priority=chainer.training.extension.PRIORITY_WRITER)
+    trainer.extend(inception_score(generator, 100, "util/inception_model", 1000, 1), trigger=(1000, 'iteration'), priority=chainer.training.extension.PRIORITY_WRITER)
     trainer.extend(chainer.training.extensions.ProgressBar(update_interval=100))
     trainer.extend(generate(generator, "./images"), trigger=(1000, 'iteration'), priority=chainer.training.extension.PRIORITY_WRITER)
     trainer.extend(chainer.training.extensions.PrintReport(report_keys), trigger=(100, 'iteration'))
