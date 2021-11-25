@@ -15,8 +15,7 @@ def generate(generator, dst):
 
         _, _, _, h, w = images.shape
         images = images.reshape((100, 3, h, w))
-        _, _, h, w = images.shape
 
         Image.fromarray(images.reshape((10, 10, 3, h, w)).transpose(0, 3, 1, 4, 2).reshape((10 * h, 10 * w, 3)))\
-            .save(dst + '/image{:0>8}.png'.format(trainer.updater.iteration))
+            .save(dst + '/image{:0>5}.png'.format(trainer.updater.iteration))
     return generate
