@@ -17,11 +17,14 @@
 
 ### Overview
 A discriminator of the standard GANs is inaccurate and unstable during training and its derivative can be unbounded and incomputable. Thus, this spectral normalization impose regularization on the space outside of the support of a generator and data distribution. The formulas of the weight normalization through spectral normalization are as follows:
+
 ![](images/img.png)
 ![](images/img_1.png)
 
-A spectral normalization uses power iteration method and approximation of the spectral norm to estimate σ(W).
+A spectral normalization uses power iteration method below and approximation of the spectral norm to estimate σ(W).
+
 ![](images/img_2.png)
+
 ### Data
 * ```CIFAR-10```: downloads from the chainer library
 
