@@ -42,6 +42,8 @@ A spectral normalization uses power iteration method below and approximation of 
 
 α | β1 | β2 | ndis | inception_score |
 --- | --- | --- | --- | --- |
-0.0002 | 0.5 | 0.9 | 5 | |
+0.0002 | 0.5 | 0.9 | 5 | 8.7 |
+0.0001 | 0.5 | 0.9 | 5 | 7.6 |
+
 ### Limitation
 * Due to time-constraint to complete this project, I was not able to run my model against the stl-10 dataset nor compare my model with other regularization techniques.

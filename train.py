@@ -9,8 +9,8 @@ if __name__ == '__main__':
     chainer.cuda.get_device_from_id(0).use()
     generator = model.Generator().to_gpu(device=0)
     discriminator = model.Discriminator().to_gpu(device=0)
-    optimizer_generator = chainer.optimizers.Adam(alpha=0.0002, beta1=0.5, beta2=0.9)
-    optimizer_discriminator = chainer.optimizers.Adam(alpha=0.0002, beta1=0.5, beta2=0.9)
+    optimizer_generator = chainer.optimizers.Adam(alpha=0.0001, beta1=0.5, beta2=0.9)
+    optimizer_discriminator = chainer.optimizers.Adam(alpha=0.0001, beta1=0.5, beta2=0.9)
     optimizer_generator.setup(generator)
     optimizer_discriminator.setup(discriminator)
 
@@ -26,7 +26,7 @@ if __name__ == '__main__':
     trainer.extend(chainer.training.extensions.PrintReport(report_keys), trigger=(100, 'iteration'))
     trainer.extend(chainer.training.extensions.LogReport(keys=report_keys, trigger=(100, 'iteration')))
 
-    trainer.extend(chainer.training.extensions.LinearShift('alpha', (0.0002, 0.), (0, 50000), optimizer_generator))
-    trainer.extend(chainer.training.extensions.LinearShift('alpha', (0.0002, 0.), (0, 50000), optimizer_discriminator))
+    trainer.extend(chainer.training.extensions.LinearShift('alpha', (0.0001, 0.), (0, 50000), optimizer_generator))
+    trainer.extend(chainer.training.extensions.LinearShift('alpha', (0.0001, 0.), (0, 50000), optimizer_discriminator))
 
     trainer.run()
