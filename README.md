@@ -15,6 +15,7 @@
 * ```Makefile```: a command line automation
 ### Architecture
 I used a standard GANs’ data flow and loss function with CIFAR-10 dataset for my implementation. However, I implemented my Generator and Discriminator with ResNet architectures rather than CNN architectures. Succinctly, I built a Generator and discriminator with Res-Block architecture, but I added spectral normalization on res-block and dense block in my discriminator.
+
 ![](images/architecture.png)
 ![](images/img_4.png)
 ### Overview
