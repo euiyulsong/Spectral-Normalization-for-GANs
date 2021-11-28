@@ -21,7 +21,7 @@ if __name__ == '__main__':
     trainer = chainer.training.Trainer(updater, (50000, 'iteration'), out="./checkpoint")
     report_keys = ["generator_loss", "discriminator_loss", "inception_score"]
 
-    trainer.extend(inception_score(generator, 100, "util/inception_model", 1000, 1), trigger=(1000, 'iteration'), priority=chainer.training.extension.PRIORITY_WRITER)
+#    trainer.extend(inception_score(generator, 100, "util/inception_model", 1000, 1), trigger=(1000, 'iteration'), priority=chainer.training.extension.PRIORITY_WRITER)
     trainer.extend(generate(generator, "./images"), trigger=(1000, 'iteration'), priority=chainer.training.extension.PRIORITY_WRITER)
     trainer.extend(chainer.training.extensions.PrintReport(report_keys), trigger=(100, 'iteration'))
     trainer.extend(chainer.training.extensions.LogReport(keys=report_keys, trigger=(100, 'iteration')))

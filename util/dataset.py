@@ -8,7 +8,6 @@ class CIFAR10(chainer.dataset.dataset_mixin.DatasetMixin):
     def __len__(self):
         return len(self.dataset)
 
-    def get_example(self, i):
-        image = np.asarray(self.dataset[i][0] / 128. - 1., np.float32)
-        image += np.random.uniform(size=image.shape, low=0., high=1. / 128)
-        return image, self.dataset[i][1]
+    def get_example(self, x):
+        scaled = np.asarray(self.dataset[x][0] / 128. - 1., np.float32) + np.random.uniform(size=(self.dataset[x][0] / 128. - 1.).shape, low=0., high=1. / 128)
+        return scaled, self.dataset[x][1]

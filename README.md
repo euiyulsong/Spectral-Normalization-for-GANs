@@ -8,13 +8,15 @@
 * ```util/dataset.py```: downloads and preprocesses CIFAR-10
 * ```util/generate_fake_image.py```: generates fake images for every 1000 iterations of training
 * ```util/generate_inception_score.py```: generates inception score for every 1000 iterations of training
-* ```util/inception.py```: creates the Inception model (code borrowed from https://github.com/hvy/chainer-inception-score)
+* ```util/inception.py```: creates the Inception model
+  * If you want to print the print inception score every certain epoch, please copy https://github.com/hvy/chainer-inception-score/blob/master/inception_score.py to this file (I did not add this contents into my file due to plagiarism issue I may face), and uncomment the line 24 in ```train.py``` and line 4 in ```util/generate_inception_score.py```
 * ```util/inception_model```: pretrained inception model 
 * ```util/trainer.py``` training loop implementation of trainer
 * ```Makefile```: a command line automation
 ### Architecture
+I used a standard GANs’ data flow and loss function with CIFAR-10 dataset for my implementation. However, I implemented my Generator and Discriminator with ResNet architectures rather than CNN architectures. Succinctly, I built a Generator and discriminator with Res-Block architecture, but I added spectral normalization on res-block and dense block in my discriminator.
 ![](images/architecture.png)
-
+![](images/img_4.png)
 ### Overview
 A discriminator of the standard GANs is inaccurate and unstable during training and its derivative can be unbounded and incomputable. Thus, this spectral normalization impose regularization on the space outside of the support of a generator and data distribution. The formulas of the weight normalization through spectral normalization are as follows:
 
@@ -40,10 +42,17 @@ A spectral normalization uses power iteration method below and approximation of 
 
 * **Inception Scores**
 
+Looking at the chart below, my spectral normalization is relatively robust with aggressive learning rates and momentum parameters
+
 α | β1 | β2 | ndis | inception_score |
 --- | --- | --- | --- | --- |
 0.0002 | 0.5 | 0.9 | 5 | 8.7 |
 0.0001 | 0.5 | 0.9 | 5 | 7.6 |
+0.001 | 0.5 | 0.9 | 5 | 8.2 |
+0.001 | 0.5 | 0.999 | 5 | 8.6 |
+0.001 | 0.9 | 0.999 | 5 | 8.2 |
+0.0001 | 0.5 | 0.999 | 1 | 6.3 |
+
 
 ### Limitation
-* Due to time-constraint to complete this project, I was not able to run my model against the stl-10 dataset nor compare my model with other regularization techniques.
+* Due to time-constraint to complete this project, I was not able to run my model against the STL-10 dataset nor compare my model with other regularization techniques.

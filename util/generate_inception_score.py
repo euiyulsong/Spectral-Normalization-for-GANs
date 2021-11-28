@@ -1,7 +1,7 @@
 import chainer
 import numpy as np
 import math
-from util.inception import Inception
+#from util.inception import Inception
 
 def inception_score(generator, minibatch, directory, num_image, split):
     @chainer.training.make_extension()
